@@ -1,52 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Моя Ферма</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #f4f4f4;
-            margin: 0;
-        }
-        .inventory {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 10px;
-            border: 2px solid #ccc;
-            background-color: #fff;
-            text-align: left;
-        }
-        .inventory p {
-            margin: 5px 0;
-        }
-        .farm-container {
-            display: grid;
-            grid-template-columns: repeat(5, 100px); /* Поле 5x5 */
-            grid-gap: 10px;
-            margin-top: 50px;
-        }
-        .farm-cell {
-            width: 100px;
-            height: 100px;
-            border: 2px solid #ccc;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #e0e0e0;
-            cursor: pointer;
-            position: relative;
-        }
-        .farm-cell img {
-            width: 80%;
-            height: 80%;
-        }
-    </style>
+    <!-- Подключение CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
@@ -72,82 +31,20 @@
     <div class="farm-cell" onclick="chooseCrop(this)"></div>
 </div>
 
-<script>
-    let coins = 100;
-    let wheat = 10;  // Начальные ресурсы пшеницы
-    let potato = 0;  // Начальные ресурсы картофеля
-    let energy = 50;
+<!-- Магазин -->
+<div id="shop" class="shop">
+    <p>Купить хлеб (15 монет за 20 энергии)</p>
+    <button onclick="buyBread()">Купить хлеб</button>
+    <p>Купить картофель (10 монет за 2 картофелины)</p>
+    <button onclick="buyPotato()">Купить картофель</button>
+    <p>Продать пшеницу (5 монет за 2 единицы)</p>
+    <button onclick="sellWheat()">Продать пшеницу</button>
+    <p>Продать картофель (10 монет за 2 единицы)</p>
+    <button onclick="sellPotato()">Продать картофель</button>
+</div>
 
-    function updateInventory() {
-        document.getElementById('coins').textContent = coins;
-        document.getElementById('wheat').textContent = wheat;
-        document.getElementById('potato').textContent = potato;
-        document.getElementById('energy').textContent = energy;
-    }
-
-    // Функция выбора культуры для посадки
-    function chooseCrop(cell) {
-        if (!cell.classList.contains('planted')) {
-            let cropChoice = confirm("Нажмите 'OK' для посадки пшеницы или 'Отмена' для картофеля.");
-            if (cropChoice) {
-                plant(cell, 'wheat');
-            } else {
-                plant(cell, 'potato');
-            }
-        }
-    }
-
-    // Функция посадки культуры
-    function plant(cell, type) {
-        if (!cell.classList.contains('planted')) {
-            let img = document.createElement('img');
-            if (type === 'wheat' && wheat > 0) {
-                wheat--;
-                img.src = "assets/wheat_seed.png";  // Изображение семян пшеницы
-                cell.appendChild(img);
-                cell.classList.add('planted');
-                setTimeout(() => {
-                    img.src = "assets/wheat_harvest.png";  // Изображение созревшего урожая
-                    cell.classList.add('harvest-ready');
-                    cell.setAttribute('data-crop', 'wheat');
-                }, 3000); // Пшеница созревает за 3 секунды
-            } else if (type === 'potato' && potato > 0) {
-                potato--;
-                img.src = "assets/potato_seed.png";  // Изображение семян картофеля
-                cell.appendChild(img);
-                cell.classList.add('planted');
-                setTimeout(() => {
-                    img.src = "assets/potato_harvest.png";  // Изображение созревшего картофеля
-                    cell.classList.add('harvest-ready');
-                    cell.setAttribute('data-crop', 'potato');
-                }, 5000); // Картофель созревает за 5 секунд
-            } else {
-                alert('У вас недостаточно выбранной культуры для посадки!');
-            }
-            updateInventory();
-        } else if (cell.classList.contains('harvest-ready')) {
-            harvest(cell);
-        }
-    }
-
-    // Функция сбора урожая
-    function harvest(cell) {
-        const crop = cell.getAttribute('data-crop');
-        const img = cell.querySelector('img');
-        if (crop === 'wheat') {
-            wheat += 2;  // Пшеница увеличивается при сборе
-            coins += 5;  // Пшеница приносит 5 монет
-        } else if (crop === 'potato') {
-            potato += 2;  // Картофель увеличивается при сборе
-            coins += 10;  // Картофель приносит 10 монет
-        }
-        energy -= 5; // Сбор урожая требует энергии
-        cell.classList.remove('harvest-ready');
-        cell.removeAttribute('data-crop');
-        img.remove();  // Удаляем изображение после сбора
-        updateInventory();
-    }
-</script>
+<!-- Подключение JavaScript -->
+<script src="script.js"></script>
 
 </body>
 </html>

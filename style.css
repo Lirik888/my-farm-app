@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+.inventory {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    background-color: #fff;
+    text-align: left;
+}
+
+.inventory p {
+    margin: 5px 0;
+}
+
+.farm-container {
+    display: grid;
+    grid-template-columns: repeat(5, 80px); /* Поле 5x5 */
+    grid-gap: 8px;
+    margin-top: 50px;
+}
+
+.farm-cell {
+    width: 80px;
+    height: 80px;
+    border: 2px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e0e0e0;
+    cursor: pointer;
+    position: relative;
+}
+
+.farm-cell img {
+    width: 70%;
+    height: 70%;
+}
+
+@media (max-width: 600px) {
+    .farm-container {
+        grid-template-columns: repeat(5, 60px); /* Уменьшение для мобильных */
+    }
+
+    .farm-cell {
+        width: 60px;
+        height: 60px;
+    }
+
+    .farm-cell img {
+        width: 60%;
+        height: 60%;
+    }
+}
+
+.shop {
+    margin-top: 20px;
+}
