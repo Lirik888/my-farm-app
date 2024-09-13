@@ -26,24 +26,24 @@ function plant(cell, type) {
         let img = document.createElement('img');
         if (type === 'wheat' && wheat > 0) {
             wheat--;
-            img.src = "assets/wheat_seed.png";  // Изображение семян пшеницы
+            img.src = "assets/wheat_seed.png";
             cell.appendChild(img);
             cell.classList.add('planted');
             setTimeout(() => {
-                img.src = "assets/wheat_harvest.png";  // Изображение созревшего урожая
+                img.src = "assets/wheat_harvest.png";
                 cell.classList.add('harvest-ready');
                 cell.setAttribute('data-crop', 'wheat');
-            }, 3000); // Пшеница созревает за 3 секунды
+            }, 3000);
         } else if (type === 'potato' && potato > 0) {
             potato--;
-            img.src = "assets/potato_seed.png";  // Изображение семян картофеля
+            img.src = "assets/potato_seed.png";
             cell.appendChild(img);
             cell.classList.add('planted');
             setTimeout(() => {
-                img.src = "assets/potato_harvest.png";  // Изображение созревшего картофеля
+                img.src = "assets/potato_harvest.png";
                 cell.classList.add('harvest-ready');
                 cell.setAttribute('data-crop', 'potato');
-            }, 5000); // Картофель созревает за 5 секунд
+            }, 5000);
         } else {
             alert('У вас недостаточно выбранной культуры для посадки!');
         }
@@ -57,16 +57,16 @@ function harvest(cell) {
     const crop = cell.getAttribute('data-crop');
     const img = cell.querySelector('img');
     if (crop === 'wheat') {
-        wheat += 2;  // Пшеница увеличивается при сборе
-        coins += 5;  // Пшеница приносит 5 монет
+        wheat += 2;
+        coins += 5;
     } else if (crop === 'potato') {
-        potato += 2;  // Картофель увеличивается при сборе
-        coins += 10;  // Картофель приносит 10 монет
+        potato += 2;
+        coins += 10;
     }
-    energy -= 5; // Сбор урожая требует энергии
+    energy -= 5;
     cell.classList.remove('harvest-ready');
     cell.removeAttribute('data-crop');
-    img.remove();  // Удаляем изображение после сбора
+    img.remove();
     updateInventory();
 }
 

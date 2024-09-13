@@ -9,15 +9,15 @@
 </head>
 <body>
 
-<!-- Блок инвентаря для отображения ресурсов -->
-<div class="inventory">
+<!-- Закрепленная область с ресурсами -->
+<div class="fixed-inventory">
     <p>Монеты: <span id="coins">100</span></p>
     <p>Пшеница: <span id="wheat">10</span></p>
     <p>Картофель: <span id="potato">0</span></p>
     <p>Энергия: <span id="energy">50</span></p>
 </div>
 
-<!-- Поле с ячейками фермы -->
+<!-- Игровое поле -->
 <div class="farm-container">
     <div class="farm-cell" onclick="chooseCrop(this)"></div>
     <div class="farm-cell" onclick="chooseCrop(this)"></div>
@@ -33,6 +33,7 @@
 
 <!-- Магазин -->
 <div id="shop" class="shop">
+    <h2>Магазин</h2>
     <p>Купить хлеб (15 монет за 20 энергии)</p>
     <button onclick="buyBread()">Купить хлеб</button>
     <p>Купить картофель (10 монет за 2 картофелины)</p>
