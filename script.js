@@ -70,8 +70,8 @@ function harvest(cell) {
         coins += 10;  // Картофель приносит 10 монет
     }
     energy -= 5;  // Сбор урожая требует энергии
-    cell.classList.remove('harvest-ready');
-    cell.removeAttribute('data-crop');
+    cell.classList.remove('harvest-ready', 'planted');  // Убираем статус "урожай готов" и "посажено"
+    cell.removeAttribute('data-crop');  // Убираем атрибут культуры
     img.remove();  // Удаляем изображение после сбора
     updateInventory();
 }
