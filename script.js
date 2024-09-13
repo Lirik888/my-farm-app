@@ -11,6 +11,13 @@ function updateInventory() {
 }
 
 function chooseCrop(cell) {
+    // Проверка: если урожай готов, то собираем
+    if (cell.classList.contains('harvest-ready')) {
+        harvest(cell);  // Урожай можно собрать
+        return;
+    }
+
+    // Если клетка еще не была засажена
     if (!cell.classList.contains('planted')) {
         let cropChoice = confirm("Нажмите 'OK' для посадки пшеницы или 'Отмена' для картофеля.");
         if (cropChoice) {
@@ -18,8 +25,6 @@ function chooseCrop(cell) {
         } else {
             plant(cell, 'potato');
         }
-    } else if (cell.classList.contains('harvest-ready')) {
-        harvest(cell);  // Урожай можно собрать
     }
 }
 
@@ -56,6 +61,7 @@ function plant(cell, type) {
 function harvest(cell) {
     const crop = cell.getAttribute('data-crop');
     const img = cell.querySelector('img');
+    
     if (crop === 'wheat') {
         wheat += 2;  // Пшеница увеличивается при сборе
         coins += 5;  // Пшеница приносит 5 монет
@@ -89,6 +95,7 @@ function sellWheat() {
         alert("Недостаточно пшеницы для продажи!");
     }
 }
+
 function sellPotato() {
     if (potato >= 2) {
         potato -= 2;
