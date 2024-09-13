@@ -40,24 +40,11 @@
             align-items: center;
             background-color: #e0e0e0;
             cursor: pointer;
+            position: relative;
         }
-        .farm-cell.planted {
-            background-color: #8bc34a; /* Цвет посаженного растения */
-        }
-        .farm-cell.harvest-ready {
-            background-color: #ffc107; /* Цвет готового к сбору урожая */
-        }
-        button {
-            padding: 10px 20px;
-            margin-top: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
+        .farm-cell img {
+            width: 80%;
+            height: 80%;
         }
     </style>
 </head>
@@ -113,19 +100,24 @@
     // Функция посадки культуры
     function plant(cell, type) {
         if (!cell.classList.contains('planted')) {
+            let img = document.createElement('img');
             if (type === 'wheat' && wheat > 0) {
                 wheat--;
+                img.src = "assets/wheat_seed.png";  // Изображение семян пшеницы
+                cell.appendChild(img);
                 cell.classList.add('planted');
                 setTimeout(() => {
-                    cell.classList.remove('planted');
+                    img.src = "assets/wheat_harvest.png";  // Изображение созревшего урожая
                     cell.classList.add('harvest-ready');
                     cell.setAttribute('data-crop', 'wheat');
                 }, 3000); // Пшеница созревает за 3 секунды
             } else if (type === 'potato' && potato > 0) {
                 potato--;
+                img.src = "assets/potato_seed.png";  // Изображение семян картофеля
+                cell.appendChild(img);
                 cell.classList.add('planted');
                 setTimeout(() => {
-                    cell.classList.remove('planted');
+                    img.src = "assets/potato_harvest.png";  // Изображение созревшего картофеля
                     cell.classList.add('harvest-ready');
                     cell.setAttribute('data-crop', 'potato');
                 }, 5000); // Картофель созревает за 5 секунд
@@ -141,6 +133,7 @@
     // Функция сбора урожая
     function harvest(cell) {
         const crop = cell.getAttribute('data-crop');
+        const img = cell.querySelector('img');
         if (crop === 'wheat') {
             wheat += 2;  // Пшеница увеличивается при сборе
             coins += 5;  // Пшеница приносит 5 монет
@@ -151,17 +144,8 @@
         energy -= 5; // Сбор урожая требует энергии
         cell.classList.remove('harvest-ready');
         cell.removeAttribute('data-crop');
+        img.remove();  // Удаляем изображение после сбора
         updateInventory();
-    }
-
-    function buyBread() {
-        if (coins >= 15) {
-            coins -= 15;
-            energy += 20;
-            updateInventory();
-        } else {
-            alert('У вас недостаточно монет для покупки хлеба!');
-        }
     }
 </script>
 
