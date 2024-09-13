@@ -8,6 +8,7 @@ body {
     align-items: center;
 }
 
+/* Фиксированная верхняя панель с ресурсами */
 .fixed-inventory {
     position: fixed;
     top: 0;
@@ -21,6 +22,7 @@ body {
     z-index: 1000;
 }
 
+/* Отступы для контента, чтобы ресурсы не перекрывали поле */
 .farm-container {
     display: grid;
     grid-template-columns: repeat(5, 80px); /* Поле 5x5 */
@@ -45,6 +47,7 @@ body {
     height: 70%;
 }
 
+/* Адаптивный дизайн для мобильных устройств */
 @media (max-width: 600px) {
     .farm-container {
         grid-template-columns: repeat(5, 60px);

@@ -18,6 +18,8 @@ function chooseCrop(cell) {
         } else {
             plant(cell, 'potato');
         }
+    } else if (cell.classList.contains('harvest-ready')) {
+        harvest(cell);  // Урожай можно собрать
     }
 }
 
@@ -26,30 +28,28 @@ function plant(cell, type) {
         let img = document.createElement('img');
         if (type === 'wheat' && wheat > 0) {
             wheat--;
-            img.src = "assets/wheat_seed.png";
+            img.src = "assets/wheat_seed.png";  // Изображение семян пшеницы
             cell.appendChild(img);
             cell.classList.add('planted');
             setTimeout(() => {
-                img.src = "assets/wheat_harvest.png";
+                img.src = "assets/wheat_harvest.png";  // Изображение созревшего урожая
                 cell.classList.add('harvest-ready');
                 cell.setAttribute('data-crop', 'wheat');
-            }, 3000);
+            }, 3000);  // Пшеница созревает за 3 секунды
         } else if (type === 'potato' && potato > 0) {
             potato--;
-            img.src = "assets/potato_seed.png";
+            img.src = "assets/potato_seed.png";  // Изображение семян картофеля
             cell.appendChild(img);
             cell.classList.add('planted');
             setTimeout(() => {
-                img.src = "assets/potato_harvest.png";
+                img.src = "assets/potato_harvest.png";  // Изображение созревшего картофеля
                 cell.classList.add('harvest-ready');
                 cell.setAttribute('data-crop', 'potato');
-            }, 5000);
+            }, 5000);  // Картофель созревает за 5 секунд
         } else {
             alert('У вас недостаточно выбранной культуры для посадки!');
         }
         updateInventory();
-    } else if (cell.classList.contains('harvest-ready')) {
-        harvest(cell);
     }
 }
 
@@ -57,16 +57,16 @@ function harvest(cell) {
     const crop = cell.getAttribute('data-crop');
     const img = cell.querySelector('img');
     if (crop === 'wheat') {
-        wheat += 2;
-        coins += 5;
+        wheat += 2;  // Пшеница увеличивается при сборе
+        coins += 5;  // Пшеница приносит 5 монет
     } else if (crop === 'potato') {
-        potato += 2;
-        coins += 10;
+        potato += 2;  // Картофель увеличивается при сборе
+        coins += 10;  // Картофель приносит 10 монет
     }
-    energy -= 5;
+    energy -= 5;  // Сбор урожая требует энергии
     cell.classList.remove('harvest-ready');
     cell.removeAttribute('data-crop');
-    img.remove();
+    img.remove();  // Удаляем изображение после сбора
     updateInventory();
 }
 
@@ -89,7 +89,6 @@ function sellWheat() {
         alert("Недостаточно пшеницы для продажи!");
     }
 }
-
 function sellPotato() {
     if (potato >= 2) {
         potato -= 2;
